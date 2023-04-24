@@ -1,0 +1,14 @@
+Ejercicio 2
+
+punto a: PushF(Push (PV,c), Fondo(Push( PopF(PushF(Push ( PV,e), f)),g) ) )
+    
+    PV+g+e+f-f -> Fondo -> e
+    PV+c
+    => c+e = ce
+
+punto b: Push(Push( Pop(Push(PushF(Push( PV, a), b), c)),a) , Top(PushF(Push (PV, J), k))) 
+
+    PV+j+k -> Top -> j
+    PV+c+a+b -> Pop -> a+a+b
+    => j+a+a+b -> jaab
+

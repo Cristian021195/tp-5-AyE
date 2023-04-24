@@ -1,0 +1,20 @@
+OPERACION MISTERIO del ADT GRUPO(ELEMENTO)
+
+SINTAXIS
+    MISTERIO: GRUPO x GRUPO -> BOOL
+
+SEMANTICA: V G1,G2 perteneciente a GRUPO, V u,v,x perteneciente a ELEMENTO
+    MISTERIO(GRUPOVACIO, G2) = true
+    MISTERIO(AGREGAR(G1,u), G2) = 
+        SI INCLUIDO(G2, u) ENTONCES
+            MISTERIO(G1,G2)
+        SINO
+            false
+
+
+VERDADERO: test que dados dos grupos devuelve true si el primero esta contenido en el segundo
+    verdadero porque no importa si G2 es mas pequeño, si los elementos de G1 estan en G2 siempre es suficiente
+FALSO: test que determina si dos grupos son iguales
+    falso porque para que sean iguales deben tener el mismo numero y tipo de elementos
+FALSO: test que determina si todos los elementos del segundo grupo se encentran en el primer grupo, en ese caso devuelve true
+    falso porque estamos analizando que los elementos de G1 se encuentren dentro de G2
