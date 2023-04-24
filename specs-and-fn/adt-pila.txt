@@ -4,13 +4,14 @@ SINTAXIS
     PILAVACIA -> PILA #
     ESPILAVACIA: PILA -> BOOL
     TOP: PILA -> ITEM U {indefinido}
+    FONDO: PILA -> ITEM U {indefinido}
     POP: PILA -> PILA
+    POPFONDO: PILA -> PILA
     PUSH: PILA x ITEM -> PILA #
     PUSHF: PILA x ITEM -> PILA
+
     APILA: PILA x PILA -> PILA
     APILAINV: PILA x PILA -> PILA
-    FONDO: PILA -> ITEM U {indefinido}
-    POPFONDO: PILA -> PILA
     ESSIMETRICA: PILA -> BOOL    
 
 SEMENTAICA: ∀ P1, P2 ∈ PILA, ∀ x,b,y ∈ ITEM 
@@ -18,16 +19,15 @@ SEMENTAICA: ∀ P1, P2 ∈ PILA, ∀ x,b,y ∈ ITEM
     ESPILAVACIA(PUSH(P1, x)) = false
     TOP(PILAVACIA) = indefinido
     TOP(PUSH(P1, x)) = x
-    POP(PILAVACIA) = PILAVACIA
-    POP(PUSH(P1, x)) = P1
-    PUSHF(PILAVACIA, x) = PUSH(PILAVACIA,x)
-    PUSHF(PUSH(P1,x), b) = PUSH(PUSHF(P1,b),x)
-
     FONDO(PILAVACIA) = indefinido
     FONDO(PUSH(P1, x)) = FONDO(P1)
-
+    POP(PILAVACIA) = PILAVACIA
+    POP(PUSH(P1, x)) = P1
     POPFONDO(PILAVACIA) = PILAVACIA
     POPFONDO(PUSH(P1, x)) = PUSH(POPFONDO(P1),x)
+    PUSHF(PILAVACIA, x) = PUSH(PILAVACIA,x)
+    PUSHF(PUSH(P1,x), b) = PUSH(PUSHF(P1,b),x)    
+    
 
     ESSIMETRICA(PILAVACIA) = true
     ESSIMETRICA(PUSH(P1, x)) = true
@@ -53,6 +53,37 @@ SEMENTAICA: ∀ P1, P2 ∈ PILA, ∀ x,b,y ∈ ITEM
         APILAINV(PUSH(PUSH(P1,x), b), P2)
         
 
+FUNCION INCLUIDA(P1,P2): PILA x PILA -> BOOL
+    respuesta: r ∈ BOOL
+    r <- false;
+
+    MIENTRAS(NOT ESPILAVACIA(P2))
+        SI(TOP(P1) == TOP(P2))
+            P1 <- POP(P1)
+            P2 <- POP(P2)
+            r <- true;
+        SINO
+            P2 <- POP(P2)
+            r <- false;
+    
+    SI(NOT ESPILAVACIA(P1))
+        r <- false;
+    
+    RETORNA r
+FIN
+
+
+
+
+FUNCION INVERTIRLISTA(P): PILA -> PILA
+    paux: PAUX ∈ PILA
+
+    MIENTRAS(NOT ESPILAVACIA(P))
+        PAUX <- PUSH(PAUX, TOP(P))
+        P <- POP(P)
+    
+    RETORNA PAUX
+FIN
 
 
 
