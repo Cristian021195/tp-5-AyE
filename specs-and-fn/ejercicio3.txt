@@ -1,0 +1,55 @@
+FUNCION CONVERTIR(P): PILA -> PILA
+    Auxiliar: PAUX, PRES ∈ PILA, PAUX <- PILAVACIA, PRES <- PILAVACIA
+
+    // SI ALTURA(P) > 2 ENTONCES AND FONDO(P) = '='
+    SI (ALTURA(P) > 2) ENTONCES
+        MIENTRAS(TOP(P) != '=') HACER
+            SI(TOP(P) = '+' OR TOP(P) = '-') ENTONCES
+                SI( TOP(PAUX) = '~' OR TOP(PAUX) = '*' OR TOP(PAUX) = '/' ) ENTONCES
+                    APILAINV(PAUX, PRES);
+                    PAUX <- PILAVACIA ?
+                    PUSH(PAUX, TOP(P))
+
+                SINO SI
+                    PUSH(PAUX, TOP(P))
+
+            SINO SI(TOP(P) = '*' OR TOP(P) = '/') ENTONCES
+                SI(TOP(P) = '+' OR TOP(P) = '-') ENTONCES
+                    SI(TOP(P) = '~') ENTONCES
+                        PUSH(PAUX, TOP(P))
+                    SINO                    
+                SINO
+
+            SINO SI(TOP(P) = '~') ENTONCES
+                A
+
+            SINO SI(TOP(P) = '(' TOP(P) = ')') ENTONCES
+                A
+            SINO
+                PUSH(PRES, TOP(P))
+
+        FIN
+
+        PUSH(PRES, TOP(PAUX))
+        PUSH(PRES, TOP(P))
+
+
+
+        
+FIN
+
+P:
+PRES: a b c
+PAUX: + * ~
+
+P: 
+PRES: a b c ~ * +
+PAUX: -
+
+P: 
+PRES: a b c ~ * + d
+PAUX: -
+
+P: '='
+PRES: a b c ~ * + d - =
+PAUX: 
