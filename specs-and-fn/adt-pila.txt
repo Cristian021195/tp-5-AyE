@@ -12,7 +12,7 @@ SINTAXIS
 
     APILA: PILA x PILA -> PILA
     APILAINV: PILA x PILA -> PILA
-    ESSIMETRICA: PILA -> BOOL    
+    ESSIMETRICA: PILA -> BOOL
 
 SEMENTAICA: ∀ P1, P2 ∈ PILA, ∀ x,b,y ∈ ITEM 
     ESPILAVACIA(PILAVACIA) = true
@@ -20,37 +20,41 @@ SEMENTAICA: ∀ P1, P2 ∈ PILA, ∀ x,b,y ∈ ITEM
     TOP(PILAVACIA) = indefinido
     TOP(PUSH(P1, x)) = x
     FONDO(PILAVACIA) = indefinido
-    FONDO(PUSH(P1, x)) = FONDO(P1)
+    FONDO(PUSH(P1, x)) = ...
+        SI(ESPILAVACIA(P1)) ENTONCES
+            x
+        SINO 
+            FONDO(P1)
+
     POP(PILAVACIA) = PILAVACIA
     POP(PUSH(P1, x)) = P1
     POPFONDO(PILAVACIA) = PILAVACIA
-    POPFONDO(PUSH(P1, x)) = PUSH(POPFONDO(P1),x)
+    POPFONDO(PUSH(P1, x)) = ...
+        SI(ESPILAVACIA(P1)) ENTONCES
+            PILAVACIA
+        SINO 
+            PUSH(POPFONDO(P1),x)
     PUSHF(PILAVACIA, x) = PUSH(PILAVACIA,x)
     PUSHF(PUSH(P1,x), b) = PUSH(PUSHF(P1,b),x)    
     
 
     ESSIMETRICA(PILAVACIA) = true
-    ESSIMETRICA(PUSH(P1, x)) = true
-    ESSIMETRICA(PUSH(PUSH(P1, x),b)) = 
-        SI x = b ENTONCES true
+    ESSIMETRICA(PUSH(PILAVACIA, x)) = true
+    ESSIMETRICA(PUSH(P1, x)) = ...
+        SI x = FONDO(P1) ENTONCES
+            ESSIMETRICA(POPFONDO(P))
         SINO false
-    ESSIMETRICA(PUSH(PUSH(PUSH(P1, x),b),y)) = 
-        SI x = y ENTONCES
-            ESSIMETRICA(P1) ?
-        SINO FALSE;
 
 
-    APILA(PILAVACIA, PILAVACIA) = PILAVACIA
-    APILA(PUSH(P1,x), PILAVACIA) = PUSH(P1,x)
-    APILA(PILAVACIA, PUSH(P2,b)) = PUSH(P2,b)
-    APILA(PUSH(P1,x), PUSH(P2,b)) = ...
-        PUSH(APILA(PUSH(P1,x), P2),b)
+    APILA(P1, PILAVACIA) = P1
+    APILA(P1, PUSH(P2,b)) = PUSH(APILA(P1, P2),b)
 
-    APILAINV(PILAVACIA, PILAVACIA) = PILAVACIA
-    APILAINV(PUSH(P1,x), PILAVACIA) = PUSH(P1, x)
-    APILAINV(PILAVACIA, PUSH(P2,b)) = APILAINV(PUSH(PILAVACIA, b), P2)
-    APILAINV(PUSH(P1,x), PUSH(P2,b)) = ... 
-        APILAINV(PUSH(PUSH(P1,x), b), P2)
+    APILAINV(P1, PILAVACIA) = P1
+    APILAINV(P1, PUSH(P2, x)) = ...
+        SI (ESPILAVACIA(P1)) ENTONCES
+            PUSH(APILAINV(PILAVACIA,P2),x)
+        SINO
+            PUSH(APILAINV(P1,P2),x)
         
 
 FUNCION INCLUIDA(P1,P2): PILA x PILA -> BOOL

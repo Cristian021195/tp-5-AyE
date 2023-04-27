@@ -1,14 +1,28 @@
 Ejercicio 2
 
-punto a: PushF(Push (PV,c), Fondo(Push( PopF(PushF(Push ( PV,e), f)),g) ) )
+punto a: 
+    PUSHF( PUSH (PV,c), FONDO( PUSH( POPFONDO( PUSHF( PUSH ( PV,e), f ) ),g ) ) )
+    PUSHF( PUSH (PV,c), FONDO( PUSH( POPFONDO( PUSH( PUSHF ( PV,f), e ) ),g ) ) )
+    PUSHF( PUSH (PV,c), FONDO( PUSH( POPFONDO( PUSH( PUSH ( PV,f), e ) ),g ) ) )
+    PUSHF( PUSH (PV,c), FONDO( PUSH( PUSH( POPFONDO( PUSH ( PV,f), e ) ),g ) ) )
+    PUSHF( PUSH (PV,c), FONDO( PUSH( PUSH( PV, e ) ,g ) ) )
+    PUSHF( PUSH (PV,c), e )
+    PUSH( PUSH (PV,e), c )
     
-    PV+g+e+f-f -> Fondo -> e
+    
+    // mis anotaciones, no prestar atencion
+    PV+g+e+f-f -> FONDO -> e
     PV+c
     => c+e = ce
 
-punto b: Push(Push( Pop(Push(PushF(Push( PV, a), b), c)),a) , Top(PushF(Push (PV, J), k))) 
+punto b:
+    PUSH( PUSH( POP( PUSH( PUSHF( PUSH( PV, a), b), c ) ),a ) , TOP( PUSHF( PUSH (PV, J ), k) ) )
+    PUSH( PUSH( POP( PUSH( PUSH( PUSH( PV, b), a), c ) ),a ) , TOP( PUSH( PUSH (PV, k ), J) ) )
+    PUSH( PUSH( PUSH( PUSH( PV, b), a), a ) , J )
 
-    PV+j+k -> Top -> j
-    PV+c+a+b -> Pop -> a+a+b
+
+    // mis anotaciones, no prestar atencion
+    PV+j+k -> TOP -> j
+    PV+c+a+b -> POP -> a+a+b
     => j+a+a+b -> jaab
 
