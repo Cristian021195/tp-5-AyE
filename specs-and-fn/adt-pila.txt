@@ -21,7 +21,7 @@ SEMENTAICA: ∀ P1, P2 ∈ PILA, ∀ x,b,y ∈ ITEM
     TOP(PILAVACIA) = indefinido
     TOP(PUSH(P1, x)) = x
     FONDO(PILAVACIA) = indefinido
-    FONDO(PUSH(P1, x)) = ...
+    FONDO(PUSH(P1, x)) = 
         SI(ESPILAVACIA(P1)) ENTONCES
             x
         SINO 
@@ -30,7 +30,7 @@ SEMENTAICA: ∀ P1, P2 ∈ PILA, ∀ x,b,y ∈ ITEM
     POP(PILAVACIA) = PILAVACIA
     POP(PUSH(P1, x)) = P1
     POPFONDO(PILAVACIA) = PILAVACIA
-    POPFONDO(PUSH(P1, x)) = ...
+    POPFONDO(PUSH(P1, x)) = 
         SI(ESPILAVACIA(P1)) ENTONCES
             PILAVACIA
         SINO 
